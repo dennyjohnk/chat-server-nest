@@ -14,12 +14,16 @@ import { CatsModule } from './cats.module';
 import { ChatbotModule } from './chatbot.module';
 
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ load: [configuration] }),
     CatsModule,
     ChatbotModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
