@@ -6,12 +6,19 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common';
+import { ApiParam } from '@nestjs/swagger';
 
 @Controller('bot')
 export class ChatBotController {
   private readonly logger = new Logger(ChatBotController.name);
 
-  @Get(':id')
+  @Get('/:id')
+  @ApiParam({
+    name: 'botId',
+    required: true,
+    description: 'Enter the bot id',
+    schema: { oneOf: [{ type: 'string' }, { type: 'integer' }] },
+  })
   async getBotInfo(@Param() params: any): Promise<string> {
     try {
       this.logger.log('get bot called');
