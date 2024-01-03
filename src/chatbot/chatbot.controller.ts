@@ -1,9 +1,28 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 
 @Controller('bot')
 export class ChatBotController {
   @Get(':id')
-  getBotInfo(@Param() params: any): string {
-    return `${params.id}`;
+  async getBotInfo(@Param() params: any): Promise<string> {
+    try {
+      return `${params.id}`;
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: 'This is a custom message',
+        },
+        HttpStatus.FORBIDDEN,
+        {
+          cause: error,
+        },
+      );
+    }
   }
 }
