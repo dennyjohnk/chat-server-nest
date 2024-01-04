@@ -1,7 +1,7 @@
 import * as compression from 'compression';
 import helmet from 'helmet';
-import * as cookieParser from 'cookie-parser';
-import * as csurf from 'csurf';
+//import * as cookieParser from 'cookie-parser';
+//import * as csurf from 'csurf';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
@@ -17,9 +17,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
   app.use(helmet());
-  app.use(cookieParser());
-  app.use(csurf({ cookie: { sameSite: true } }));
+  //app.use(cookieParser());
+  //app.use(csurf({ cookie: { sameSite: true } }));
   app.use(compression());
+  app.setGlobalPrefix('pelihealth/api/v1');
   await app.listen(3000);
 }
 bootstrap();
